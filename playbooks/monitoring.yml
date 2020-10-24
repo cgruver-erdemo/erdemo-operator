@@ -1,0 +1,29 @@
+---
+
+- name: Deploy Application Monitoring Stack
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  run_once: true
+  vars_files:
+    - group_vars/services.yml
+    - group_vars/monitoring.yml
+
+  tasks:
+    - set_fact:
+        namespace: "{{ namespace_monitoring }}"
+        resources_dir: "{{ resources_base_dir }}/monitoring"
+        work_dir_name: "{{ project_admin }}-monitoring"
+    - include_role:
+        name: ../roles/monitoring
+      when: >
+        ACTION is not defined or
+        ACTION is none or
+        ACTION|trim() == "" or
+        ACTION|trim() == "install"
+    - include_role:
+        name: ../roles/monitoring
+        tasks_from: uninstall
+      when: >
+        ACTION is defined and
+        ACTION|trim() == "uninstall"

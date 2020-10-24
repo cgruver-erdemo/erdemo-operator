@@ -1,0 +1,118 @@
+---
+
+- name: "delete kservice {{ dw_application_name }}"
+  oc_obj:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ dw_application_name }}"
+    namespace: "{{ namespace }}"
+    kind: kservice
+
+- name: "delete kafkasource {{ application_name }}-source"
+  oc_obj:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ application_name }}-source"
+    namespace: "{{ namespace }}"
+    kind: kafkasource
+
+- name: "delete cache {{ dw_incident_mapping_cache_name }}"
+  oc_obj:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ dw_incident_mapping_cache_name }}"
+    namespace: "{{ namespace }}"
+    kind: cache
+
+- name: "delete cache {{ dw_responder_cache_name }}"
+  oc_obj:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ dw_responder_cache_name }}"
+    namespace: "{{ namespace }}"
+    kind: cache
+
+
+- name: delete postgresql dc
+  oc_obj:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ dw_postgresql_application_name }}"
+    namespace: "{{ namespace }}"
+    kind: dc
+
+- name: delete postgresql service
+  oc_obj:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ dw_postgresql_application_name }}"
+    namespace: "{{ namespace }}"
+    kind: service
+
+- name: delete postgresql pvc
+  oc_obj:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ dw_postgresql_application_name}}"
+    namespace: "{{ namespace }}"
+    kind: pvc
+
+- name: delete postgresql secret
+  oc_secret:
+    oc_binary: "{{ openshift_cli }}"
+    namespace: "{{ namespace }}"
+    name: "{{ dw_postgresql_application_name }}"
+    state: absent
+
+- name: delete postgresql init configmap
+  oc_configmap:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ postgresql_init_configmap }}"
+    namespace: "{{ namespace }}"
+
+- name: delete {{ postgresql_service_account }} service account
+  oc_serviceaccount:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ postgresql_service_account }}"
+    namespace: "{{ namespace }}"
+
+- name: "delete {{ cm_name }} configmap"
+  oc_configmap:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ cm_name }}"
+    namespace: "{{ namespace }}"
+
+- name: "delete imagestream {{ dw_application_name }}"
+  oc_obj:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ dw_application_name }}"
+    namespace: "{{ namespace }}"
+    kind: imagestream
+
+- name: remove buildconfig
+  oc_obj:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ buildconfig_name }}"
+    namespace: "{{ namespace_tools }}"
+    kind: buildconfig
+
+- name: delete the build pipeline
+  oc_obj:
+    state: absent
+    oc_binary: "{{ openshift_cli }}"
+    name: "{{ pipeline_buildconfig_name }}"
+    namespace: "{{ namespace_tools }}"
+    kind: bc
+
+- name: delete imagestream from the {{ namespace_tools }} project
+  oc_obj:
+    oc_binary: "{{ openshift_cli }}" 
+    state: absent
+    name: "{{ application_name }}" 
+    namespace: "{{ namespace_tools }}" 
+    kind: imagestream

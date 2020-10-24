@@ -1,0 +1,20 @@
+# permissions for end users to view erdemos.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: erdemo-viewer-role
+rules:
+- apiGroups:
+  - apps.erdemo.io
+  resources:
+  - erdemos
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps.erdemo.io
+  resources:
+  - erdemos/status
+  verbs:
+  - get

@@ -1,0 +1,21 @@
+---
+
+namespace_strimzi_operator: kafka-operator-erd
+namespace_kafka_cluster: "{{ project_admin }}-{{ project_name }}"
+
+strimzi_cluster_operator: strimzi-cluster-operator
+
+kafka_cluster: kafka-cluster
+
+kafka_connect: kafka-connect
+
+kafka_topics: >
+  [{"name": "topic-incident-event", "partitions": "15", "replicas": "3", "config": "{}"},
+   {"name": "topic-incident-command", "partitions": "15", "replicas": "3", "config": "{}"},
+   {"name": "topic-mission-command", "partitions": "15", "replicas": "3", "config": "{}"},
+   {"name": "topic-mission-event", "partitions": "15", "replicas": "3", "config": "{}"},
+   {"name": "topic-responder-command", "partitions": "15", "replicas": "3", "config": "{}"},
+   {"name": "topic-responder-event", "partitions": "15", "replicas": "3", "config": "{}"},
+   {"name": "topic-responder-location-update", "partitions": "15", "replicas": "3", "config": "{}"},
+   {"name": "responder-simulator-kstreams-responder-store-changelog", "partitions": "15", "replicas": "3", 
+   "config": {"cleanup.policy": "compact", "message.timestamp.type": "CreateTime"}}]

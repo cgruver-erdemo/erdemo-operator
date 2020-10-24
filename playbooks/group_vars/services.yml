@@ -1,0 +1,35 @@
+---
+
+namespace_services: "{{ project_admin }}-{{ project_name }}"
+
+assignment_rules_application_name: "assignment-rules"
+assignment_rules_model_application_name: "assignment-rules-model"
+incident_process_application_name: "incident-process"
+incident_service_application_name: "incident-service"
+mission_service_application_name: "mission-service"
+process_service_application_name: "process-service"
+responder_service_application_name: "responder-service"
+responder_simulator_service_application_name: "responder-simulator"
+emergency_console_application_name: "emergency-console"
+process_viewer_application_name: "process-viewer"
+incident_priority_service_application_name: "incident-priority-service"
+disaster_simulator_service_application_name: "disaster-simulator"
+responder_client_application_name: "responder-client-app"
+disaster_service_application_name: "disaster-service"
+dw_application_name: "datawarehouse"
+dw_postgresql_application_name: dw-postgresql
+
+provision_find_service: "true"
+find_application_name: "find-service"
+
+kafdrop_application_name: "kafdrop"
+
+
+process_service_postgresql_username: rhpam
+process_service_postgresql_password: rhpam
+process_service_postgresql_database: rhpam
+process_service_postgresql_service_name: process-service-postgresql
+
+dw_postgresql_username: naps
+dw_postgresql_password: naps
+dw_postgresql_database: datawarehouse

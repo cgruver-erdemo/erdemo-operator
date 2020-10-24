@@ -1,0 +1,13 @@
+---
+
+namespace_postgresql: "{{ project_admin }}-{{ project_name }}"
+
+postgresql_init_scripts:
+  - https://raw.githubusercontent.com/Emergency-Response-Demo/sql-scripts/master/emergency_response_demo_ddl.sql
+
+postgresql_username: naps
+postgresql_password: naps
+postgresql_database: emergency_response_demo
+
+postgresql_application_name: postgresql
+postgresql_credentials_secret: "{{ postgresql_application_name }}-credentials"

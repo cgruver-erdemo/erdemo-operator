@@ -1,0 +1,22 @@
+---
+
+home_dir: "{{ playbook_dir }}/.."
+
+# resources dir
+resources_base_dir: "{{ home_dir }}/resources"
+
+# oc executable
+openshift_cli: oc
+
+project_name: er-demo
+
+project_admin: user1
+
+monitoring_label: prometheus
+
+uninstall_delete_project: false
+uninstall_cluster_resources: false
+
+namespace_knativeserving: knative-serving
+namespace_knativeeventing: knative-eventing
+install_knative: true

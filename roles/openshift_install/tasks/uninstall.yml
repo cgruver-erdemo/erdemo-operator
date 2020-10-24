@@ -1,0 +1,269 @@
+---
+
+- name: uninstall datawarehouse service
+  import_role:
+    name: openshift_datawarehouse
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/datawarehouse"
+    work_dir_name: datawarehouse
+
+- name: uninstall disaster service
+  import_role:
+    name: openshift_disaster_service
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/disaster-service"
+    work_dir_name: disaster-service
+
+- name: uninstall responder simulator service
+  import_role:
+    name: openshift_responder_simulator_service
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/responder-simulator-service"
+    work_dir_name: responder-simulator-service
+
+- name: uninstall disaster simulator service
+  import_role:
+    name: openshift_disaster_simulator_service
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/disaster-simulator-service"
+    work_dir_name: disaster-simulator-service
+
+- name: uninstall emergency console
+  import_role:
+    name: openshift_emergency_console
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/emergency-console"
+    work_dir_name: emergency-console
+
+- name: uninstall responder client app
+  import_role:
+    name: openshift_responder_client_app
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/responder-client-app"
+    work_dir_name: responder-client-app
+
+- name: uninstall responder service
+  import_role:
+    name: openshift_responder_service
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/responder-service"
+    work_dir_name: responder-service
+
+- name: uninstall process service
+  import_role:
+    name: openshift_process_service
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/process-service"
+    work_dir_name: process-service
+
+- name: uninstall mission service
+  import_role:
+    name: openshift_mission_service
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/mission-service"
+    work_dir_name: mission-service
+
+- name: uninstall incident service
+  import_role:
+    name: openshift_incident_service
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/incident-service"
+    work_dir_name: incident-service
+
+- name: uninstall incident process viewer
+  import_role:
+    name: openshift_process_viewer
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/process-viewer"
+    work_dir_name: process-viewer
+
+- name: uninstall incident priority service
+  import_role:
+    name: openshift_incident_priority_service
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/incident-priority-service"
+    work_dir_name: incident-priority-service
+
+- name: uninstall incident process
+  import_role:
+    name: openshift_incident_process
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/incident-process"
+    work_dir_name: incident-process
+
+- name: uninstall assignment rules
+  import_role:
+    name: openshift_assignment_rules
+    tasks_from: uninstall
+  vars:
+    resources_dir: "{{ resources_base_dir }}/assignment-rules"
+    work_dir_name: assignment-rules
+
+- name: uninstall assignment rules model
+  import_role:
+    name: openshift_assignment_rules_model
+    tasks_from: uninstall
+  vars:
+    resources_dir: "{{ resources_base_dir }}/assignment-rules-model"
+    work_dir_name: assignment-rules-model
+
+- name: uninstall emergency response demo monitoring
+  import_role:
+    name: erd_monitoring
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/erd-monitoring"
+    work_dir_name: erd-monitoring
+
+- name: uninstall datagrid
+  import_role:
+    name: openshift_datagrid
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_datagrid }}"
+    resources_dir: "{{ resources_base_dir }}/datagrid"
+    work_dir_name: datagrid
+
+- name: uninstall postgresql
+  import_role:
+    name: openshift_postgresql
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_postgresql }}"
+    resources_dir: "{{ resources_base_dir }}/postgresql"
+    work_dir_name: postgresql
+
+- name: uninstall pgadmin4
+  import_role:
+    name: openshift_pgadmin4
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_tools }}"
+    resources_dir: "{{ resources_base_dir }}/pgadmin4"
+    work_dir_name: pgadmin4
+
+- name: uninstall nexus
+  import_role:
+    name: openshift_nexus
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_tools }}"
+    resources_dir: "{{ resources_base_dir }}/nexus"
+    work_dir_name: nexuss
+  when: deploy_from is defined and deploy_from == "source"
+
+- name: uninstall jenkins
+  import_role:
+    name: openshift_jenkins
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_tools }}"
+    work_dir_name: jenkins
+    resources_dir: "{{ resources_base_dir }}/jenkins"
+
+- name: uninstall Kafka Connect
+  import_role:
+    name: openshift_kafka_connect
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_kafka_cluster }}"
+    resources_dir: "{{ resources_base_dir }}/kafka-connect"
+    work_dir_name: kafka-connect
+
+- name: uninstall kafka topics
+  import_role:
+    name: openshift_kafka_topics
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_kafka_cluster }}"
+    resources_dir: "{{ resources_base_dir }}/strimzi"
+    work_dir_name: kafka-topics
+
+- name: uninstall kafka cluster
+  import_role:
+    name: openshift_kafka_cluster
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_kafka_cluster }}"
+    work_dir_name: kafka-cluster
+
+- name: uninstall kafka operator
+  import_role:
+    name: openshift_strimzi_operator
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_strimzi_operator }}"
+    resources_dir: "{{ resources_base_dir }}/strimzi"
+    work_dir_name: strimzi-operator
+
+- name: uninstall monitoring stack
+  import_role:
+    name: monitoring
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_monitoring }}"
+    resources_dir: "{{ resources_base_dir }}/monitoring"
+    work_dir_name: "{{ project_admin }}-monitoring"
+
+- name: delete namespace services
+  oc_project:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ namespace_services }}"
+
+- name: delete namespace tools
+  oc_project:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ namespace_tools }}"
+
+- name: delete namespace kafka operator
+  oc_project:
+    oc_binary: "{{ openshift_cli }}"
+    state: absent
+    name: "{{ namespace_strimzi_operator }}"
+
+- name: uninstall sso realm
+  import_role:
+    name: sso_realm
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/sso_realm"
+    work_dir_name: sso-realm
+
+- name: uninstall sso
+  import_role:
+    name: sso
+    tasks_from: uninstall
+  vars:
+    namespace: "{{ namespace_sso }}"
+    resources_dir: "{{ resources_base_dir }}/sso"
+    work_dir_name: sso

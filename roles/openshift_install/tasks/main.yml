@@ -1,0 +1,348 @@
+---
+
+- name: install sso
+  import_role:
+    name: sso
+  vars:
+    namespace: "{{ namespace_sso }}"
+    resources_dir: "{{ resources_base_dir }}/sso"
+    work_dir_name: sso
+
+- name: install monitoring
+  import_role:
+    name: monitoring
+  vars:
+    namespace: "{{ namespace_monitoring }}"
+    resources_dir: "{{ resources_base_dir }}/monitoring"
+    work_dir_name: "{{ project_admin }}-monitoring"
+  when: install_monitoring is defined and install_monitoring|bool == true
+
+- name: install kafka operator
+  import_role:
+    name: openshift_strimzi_operator
+  vars:
+    namespace: "{{ namespace_strimzi_operator }}"
+    resources_dir: "{{ resources_base_dir }}/strimzi"
+    work_dir_name: strimzi-operator
+
+- name: install kafka cluster
+  import_role:
+    name: openshift_kafka_cluster
+  vars:
+    namespace: "{{ namespace_kafka_cluster }}"
+    resources_dir: "{{ resources_base_dir }}/strimzi"
+    work_dir_name: kafka-cluster
+
+- name: install kafka topics
+  import_role:
+    name: openshift_kafka_topics
+  vars:
+    namespace: "{{ namespace_kafka_cluster }}"
+    resources_dir: "{{ resources_base_dir }}/strimzi"
+    work_dir_name: kafka-topics
+
+- name: install jenkins
+  import_role:
+    name: openshift_jenkins
+  vars:
+    namespace: "{{ namespace_tools }}"
+    work_dir_name: jenkins
+    resources_dir: "{{ resources_base_dir }}/jenkins"
+  when: deploy_from is defined and deploy_from == "source"
+
+- name: install common nexus when building from image
+  import_role:
+    name: openshift_nexus
+  vars:
+    namespace: "{{ namespace_nexus }}"
+    resources_dir: "{{ resources_base_dir }}/nexus"
+    work_dir_name: nexus
+  when: deploy_from is defined and deploy_from == "image"
+
+- name: install nexus
+  import_role:
+    name: openshift_nexus
+  vars:
+    namespace: "{{ namespace_tools }}"
+    resources_dir: "{{ resources_base_dir }}/nexus"
+    work_dir_name: nexus
+  when: deploy_from is defined and deploy_from == "source"
+
+- name: install pgadmin4
+  import_role:
+    name: openshift_pgadmin4
+  vars:
+    namespace: "{{ namespace_tools }}"
+    resources_dir: "{{ resources_base_dir }}/pgadmin4"
+    work_dir_name: pgadmin4
+  when: install_tools is defined and install_tools|bool == true  
+
+- name: install knative
+  import_role:
+    name: knative
+  vars:
+    namespace: "{{ namespace_knativeserving }}"
+    resources_dir: "{{ resources_base_dir }}/knative"
+    work_dir_name: knative
+  when: install_knative is defined and install_knative|bool == true  
+
+
+- name: install postgresql
+  import_role:
+    name: openshift_postgresql
+  vars:
+    namespace: "{{ namespace_postgresql }}"
+    resources_dir: "{{ resources_base_dir }}/postgresql"
+    work_dir_name: postgresql
+
+- name: install Kafka Connect
+  import_role:
+    name: openshift_kafka_connect
+  vars:
+    namespace: "{{ namespace_kafka_cluster }}"
+    resources_dir: "{{ resources_base_dir }}/kafka-connect"
+    work_dir_name: kafka-connect
+
+
+- name: install sso realm
+  import_role:
+    name: sso_realm
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/sso_realm"
+    work_dir_name: sso-realm
+
+- name: install datagrid
+  import_role:
+    name: openshift_datagrid
+  vars:
+    namespace: "{{ namespace_datagrid }}"
+    resources_dir: "{{ resources_base_dir }}/datagrid"
+    work_dir_name: datagrid
+
+- name: install assignment rules model
+  import_role:
+    name: openshift_assignment_rules_model
+  vars:
+    resources_dir: "{{ resources_base_dir }}/assignment-rules-model"
+    work_dir_name: assignment-rules-model
+  when: deploy_from is defined and deploy_from == "source"
+
+- name: install assignment rules
+  import_role:
+    name: openshift_assignment_rules
+  vars:
+    resources_dir: "{{ resources_base_dir }}/assignment-rules"
+    work_dir_name: assignment-rules
+  when: deploy_from is defined and deploy_from == "source"
+
+- name: install incident process
+  import_role:
+    name: openshift_incident_process
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/incident-process"
+    work_dir_name: incident-process
+  when: deploy_from is defined and deploy_from == "source"
+
+- name: install incident service
+  import_role:
+    name: openshift_incident_service
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/incident-service"
+    work_dir_name: incident-service
+
+- name: install process viewer
+  import_role:
+    name: openshift_process_viewer
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/process-viewer"
+    work_dir_name: process-viewer
+
+- name: install incident priority service
+  import_role:
+    name: openshift_incident_priority_service
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/incident-priority-service"
+    work_dir_name: incident-priority-service
+
+- name: install mission service
+  import_role:
+    name: openshift_mission_service
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/mission-service"
+    work_dir_name: mission-service
+
+- name: install process service
+  import_role:
+    name: openshift_process_service
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/process-service"
+    work_dir_name: process-service
+
+- name: install responder service
+  import_role:
+    name: openshift_responder_service
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/responder-service"
+    work_dir_name: responder-service
+
+- name: install responder simulator service
+  import_role:
+    name: openshift_responder_simulator_service
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/responder-simulator-service"
+    work_dir_name: responder-simulator-service
+
+- name: install disaster simulator service
+  import_role:
+    name: openshift_disaster_simulator_service
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/disaster-simulator-service"
+    work_dir_name: disaster-simulator-service
+
+- name: install emergency console
+  import_role:
+    name: openshift_emergency_console
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/emergency-console"
+    work_dir_name: emergency-console
+
+- name: install responder client app
+  import_role:
+    name: openshift_responder_client_app
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/responder-client-app"
+    work_dir_name: responder-client-app
+
+- name: install disaster service
+  import_role:
+    name: openshift_disaster_service
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/disaster-service"
+    work_dir_name: disaster-service
+
+- name: install emergency response demo monitoring
+  import_role:
+    name: erd_monitoring
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/erd-monitoring"
+    work_dir_name: erd-monitoring
+  when: install_monitoring is defined and install_monitoring|bool == true
+
+- name: install openshift_datawarehouse
+  import_role:
+    name: openshift_datawarehouse
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/datawarehouse"
+    work_dir_name: datawarehouse
+  when: install_knative is defined and install_knative|bool == true
+
+# Dependent on knative
+- name: install find service
+  import_role:
+    name: openshift_find_service
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/find-service"
+    work_dir_name: find-service
+  when: install_knative is defined and install_knative|bool == true and provision_find_service|bool 
+
+# Dependent on knative
+- name: install kafdrop
+  import_role:
+    name: openshift_kafdrop
+  vars:
+    namespace: "{{ namespace_services }}"
+    resources_dir: "{{ resources_base_dir }}/kafdrop"
+    work_dir_name: kafdrop
+  when: install_knative is defined and install_knative|bool == true
+
+- block:
+  - name: start pipeline incident service
+    shell: "{{ openshift_cli }} start-build {{ incident_service_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: start pipeline mission service
+    shell: "{{ openshift_cli }} start-build {{ mission_service_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: start pipeline responder service
+    shell: "{{ openshift_cli }} start-build {{ responder_service_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: start pipeline assignment rules model
+    shell: "{{ openshift_cli }} start-build {{ assignment_rules_model_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: wait until build assignment rules model is finished
+    shell: "{{ openshift_cli }} get build {{ assignment_rules_model_application_name }}-pipeline-1 -o template --template={{ json_template }} -n {{ namespace_tools }}"
+    vars:
+      json_template: '\{\{.status.phase\}\}'
+    register: result
+    until: result.stdout == "Complete"
+    retries: 80
+    delay: 30
+    changed_when: false
+
+  - name: start pipeline assignment rules
+    shell: "{{ openshift_cli }} start-build {{ assignment_rules_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: wait until build assignment rules is finished
+    shell: "{{ openshift_cli }} get build {{ assignment_rules_application_name }}-pipeline-1 -o template --template={{ json_template }} -n {{ namespace_tools }}"
+    vars:
+      json_template: '\{\{.status.phase\}\}'
+    register: result
+    until: result.stdout == "Complete"
+    retries: 80
+    delay: 30
+    changed_when: false
+
+  - name: start pipeline incident process
+    shell: "{{ openshift_cli }} start-build {{ incident_process_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: wait until build incident process is finished
+    shell: "{{ openshift_cli }} get build {{ incident_process_application_name }}-pipeline-1 -o template --template={{ json_template }} -n {{ namespace_tools }}"
+    vars:
+      json_template: '\{\{.status.phase\}\}'
+    register: result
+    until: result.stdout == "Complete"
+    retries: 80
+    delay: 30
+    changed_when: false
+
+  - name: start pipeline process service
+    shell: "{{ openshift_cli }} start-build {{ process_service_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: start pipeline incident priority service
+    shell: "{{ openshift_cli }} start-build {{ incident_priority_service_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: start pipeline responder simulator service
+    shell: "{{ openshift_cli }} start-build {{ responder_simulator_service_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: start pipeline disaster simulator service
+    shell: "{{ openshift_cli }} start-build {{ disaster_simulator_service_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: start pipeline process viewer service
+    shell: "{{ openshift_cli }} start-build {{ process_viewer_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: start pipeline disaster service
+    shell: "{{ openshift_cli }} start-build {{ disaster_service_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: start pipeline datawarehouse service
+    shell: "{{ openshift_cli }} start-build {{ dw_application_name }}-pipeline -n {{ namespace_tools }}"
+
+  - name: start pipeline find service
+    shell: "{{ openshift_cli }} start-build {{ find_application_name }}-pipeline -n {{ namespace_tools }}"
+    when: provision_find_service|bool
+
+  when: deploy_from is defined and deploy_from == "source"
