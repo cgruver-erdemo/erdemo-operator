@@ -31,12 +31,61 @@ spec:
             type: object
           spec:
             description: Spec defines the desired state of ErDemo
+            properties:
+              mapToken:
+                description: 'The token for use with mapbox. Obtained here: https://account.mapbox.com/access-tokens/'
+                type: string
+                default: replaceme
             type: object
-            x-kubernetes-preserve-unknown-fields: true
           status:
             description: Status defines the observed state of ErDemo
+            properties:
+              conditions:
+                description: The conditions reported by the Ansible operator
+                items:
+                  properties:
+                    ansibleResult:
+                      description: The result reported from the last playbook run
+                      properties:
+                        changed:
+                          description: The number of tasks that resulted in a change
+                          type: integer
+                        completion:
+                          description: The time of completion
+                          type: string
+                        failures:
+                          description: The number of tasks that failed
+                          type: integer
+                        ok:
+                          description: The number of tasks that completed without
+                            change
+                          type: integer
+                        skipped:
+                          description: The number of tasks that were skipped
+                          type: integer
+                      type: object
+                    lastTransitionTime:
+                      description: The last time the playbook was invoked following
+                        a watch
+                      format: date-time
+                      type: string
+                    message:
+                      description: The last message reported from the Ansible Operator
+                        SDK
+                      type: string
+                    reason:
+                      description: The reason the status was updated
+                      type: string
+                    status:
+                      description: The boolean return value of the playbook execution,
+                        as a string
+                      type: string
+                    type:
+                      description: The type of status change event
+                      type: string
+                  type: object
+                type: array
             type: object
-            x-kubernetes-preserve-unknown-fields: true
         type: object
     served: true
     storage: true

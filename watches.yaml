@@ -4,4 +4,8 @@
   group: apps.erdemo.io
   kind: ErDemo
   playbook: playbooks/install.yml
+  finalizer:
+    name: finalizer.erdemo.io
+    vars:
+      ACTION: uninstall
 # +kubebuilder:scaffold:watch

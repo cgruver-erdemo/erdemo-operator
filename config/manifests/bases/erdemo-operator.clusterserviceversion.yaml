@@ -1,0 +1,117 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+    operators.operatorframework.io/builder: operator-sdk-v1.0.1
+    operators.operatorframework.io/project_layout: ansible.sdk.operatorframework.io/v1
+  name: erdemo-operator.vX.Y.Z
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions: {}
+  description: Deploys and manages ErDemo and dependent database.
+  displayName: Emergency Response Demo Operator
+  icon:
+  - base64data: |
+      iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAVFBMVE
+      X////56+v03N3TNTzNBBTPHifOFiHPISoiHh/MISnMAAPnmp3ec3jzzM7vvL7srbDjh4rXRk3aXW
+      L99PUJBAXYUVd3dnZYVVbIx8c6Njevrq6dnJyUzc0FAAAO+UlEQVR4nOxdibKrKBM+QoMJ4B7v2d
+      7/Pf9yQ2RRRMyZv4qvZmrm3iTqZze9Ac1HQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCwn8BHS
+      rKsuK1EKKdIISoeVUWCP31s11Dh0petxiAAQBQoBsMf8cAaCPqqkDdXz/sSXSorEUzkqCE5HlOxn
+      /Gf7cgZOKa94IX/ycSzcq6xXSh5omJKMWCF/9taWZljeEkuS1PANrz4q95OIB4G05OoUkBiKj+ax
+      rbFYPw6FV2Ksue/4dIFgIDuIRHBij2c/7f8a/33ggFaP4bJBHHzCq8xUwSjJt+8IF1zTnndT24xb
+      7BOJ8ZO5kSYE3515anbAEsPmCyjK3gVYFQZv9pl6GirLhom3wiapdkXv+hIDOOjbE32kPS15WLmO
+      06qKzqNrdbYQLQlrfScALVRBffwA4H28Gs4MLqSSngKvbTHwMJXT3JFXYSWcFbbLAkgKv3DshM50
+      co4DpWPNKhSmjOh7xXjllNN/wG5RSxwy1UtcBUH0Sgedd45KDza25SIS2OoNC8w66WWOcnjuLILs
+      vQhCzLTr4LxHvlhVIQ/iY6DJkAujVzYue1Zqgc/N3s29nk/vtW8PKEL/lAvFlJQn7vcKzIxv9RaJ
+      38ikpgMkVpQ9Ay/ozkUwQ3UhUncojBM813Jjv3vIysZRsFhcb+jF3BGzZafGfgScbIgDX++WDZLu
+      aNwl1iLMlWQSm3fSurBGGeaQahwLAoPTUW1bMJIOye0ViDJkCLsnRlS04mUZRCLjzdQFfhyQwAjp
+      8lZ41GsDa/UwgalCMSCsQ3vi6bkSMFqwJdQKFpaG689a5q7FmUJ0nWewqyHN81YSIqwWobo1Gsv/
+      EhzbiY4VPA3M/sTByhjTgY+fbpodGvXedX+U0Xxp66Vw12leJoFAXbEmyNFxCF35Sf+HHsaqA5pZ
+      E8o4B8j2B5WT+3l8d+4xG1QCiNYlI1grTZfJqJqPzOBC0VUBKDok4Qb6xBtbWxcShSmyuyYPBgcF
+      lRNYKEqFfstBEajaOvR+dweSzWGkFQBwnCcAe/8UbMT4xFDvklipqbyDfqU9L4GrpS9Mx2s4bhC+
+      l3qSkhwSr7ezRUgoKfUa2Z7r38gYxqWvE+gv6aWnp+z0SHNS2kSiio6+8tgNZLAZGntA1oZjQnit
+      l6C8HB/XsFZihsKHKm325VBn2A3gZPZ5CF6CnSSRAm3yfyTpOWCSgJenIOlRIvzxgSg/e6K1BGof
+      GZlRwFYIB7UfOqKgdUFa9Fi4GdmSsmscJrHdxw5kzeqT509AM7aOrSuoqkQyVvifeUcYTAzAZTD2
+      kvPzsYhIT6LDeY5iZ8SN5DURh6uCZuza6OEoDWcwaqK2rH/LF2SRKfYqHb0TyXL9LymcovPzf5Xg
+      h2LEh6JTCzQ/f1qpLumBkaMj2UmTOt5oWbyAQr05RIJdVDOVV+gdNfHT8q8xAat7L2gc37yZDUaU
+      gdcyYZQl9fX871CvOXajhwQHEr+aVJgtDOzT6fKu3GWPn6/ff9eLxGPB7fn79f7nuiZl+McQ2qxV
+      iSZSAguwiN0AP9fg68Xg8Fr9fr88cpS74vRkLiESxsIlwCP8sQzY3qbPbz+dpwU0n+cwmj2C8ZQL
+      yhaPpCZRjYPtQmMbJ/Dzu9heQ/TY6Lf+nafYqxpvEzS8iy5r6N5UPGN/wc4lM5/mzuWNCF8m5pks
+      TyimZEOgSlyzOYj0A2ZeqfQ34jx8/NOwU5D7Kbd3oWGQ9hNZZseRhLsKMQRJ8+/AZ8q5raqBR3hB
+      jHnlo9uixBIYOh+mJ/POnpFAVdZ1nqnaCQhtecFFhfooyaDFe5RnMfH/98BThRVO/5XEPPvdwMYs
+      xTWDMHyUNnSPIskODj9U/+soTncw09dyxqDCHaCxTyyqW7Bn6S4OPxkiFOAc/nU/q7zhE2RRKiJW
+      LbYagExKcJKnqK6HOguPjcnRQ7QgReW0MnB0OlhhJA8CHdYkeez2dO2LFBjWBOLR7dbWlWO/oTQP
+      DxkF7xSZ5PddLAnYNe9omZ3ePavQVhi/3LQvg9Hq9FIHhkuIae7iQ0pxcZWqLuSTkWKirDdVCE6K
+      iqpjNDjyz0cnRqTx3yXEpLNbVy3HyFEVwdRjMzlKOhs+wCm971VVtjNzRKHapdv7B6sM8wgutAXB
+      iuIaDT2JD8Wvzd2hmufk+581q6CRTh6i8WLVVqCc6ReNElupRDZsDrQF0Nd+AoHKAz9BDiRWvqen
+      PSmCoDRNr272CCiwyfkiFZbGXmKhWTS5XFzhXYkzVJXfRYDvlwJV3GYTbGNLOI9qoJ20cJgZkcSd
+      1YBqL0+VKfwrz9iNmWIlgZShE5HNfFgehmuBrpJS6WnHeH4ffmPxoWf1iqDOXwtodX25T7NJzvTU
+      mTFhOwGhp/mWlEl5iGKwxXAi6vf8kjuhkqRed5sTUNYKhhcYetMg6P1fSSqdlhuF53inuk0bP7ex
+      /7+vqdLpANplQyXKtejnniS7XhHYY5kwN8nJla7xPuDrPlrk+VodQWR/ixhpAhDPfKQM36HsYOAs
+      sff0Oj0lmEHzXdMJTRhcvpsws5otuWDheWUf1gA9ZkLjjuXi4wKalkKK/s0qgr7mKXobKqraGKlo
+      Ymh0uZZvIVCsOlONs5ktUrCZQzppnenYwIERBlvAelFmupradbhqsWOkpSl+YS9yfx1iJJyZTgKU
+      hN1zIUe2oylFroMDWXGO4U8rZ6WjGlJqS4Bu8oXL6fVhfhGi05fP4lhi4DPUMJJ/jqPQKEKCs0i6
+      uwMnQY00sMj5Y7KRevlfucdomr/BtiMlyuXMEzOkNXnWaBasdUr3QqRXwpszJ8EaGN4SDf2Az3gp
+      qZotUZnfEYyoTFR7GYGauWjhocmaGjXrq5voOip6K+Hr/Kr3JiElwZqnmj7fMguJIyRYr2fSqZ3+
+      To61NV7sUVbmnId4jA+Mz9jn3hqh2oFB1a4hGfvr43S2pasOio4vEdDK/Epa65J/0W9nLX0Rz363
+      uzQqHr7QTX3MHOUBbgw+C3wNm1u/HLtY5mXGSyXRKFGmonmEsGBdg+pvgSQ78Vzjl17aFD/x4mSd
+      tiqIq4CK4T55ZoIMJE8PES5+k2YK5jW0j+fn7Pq9nGFW22BW1ZC8RBUKk0VRZnqeSPgTj0iDMIkB
+      23lKGvn9/f35+fL+uiRLcAN86AWwfq5WWK+8H3hmPgetKiAZsblJeV76S2vodrptRfTaeH8d1irv
+      JrgeZOfpv1K62Nobr8Iwy7eb5OkbKT7Y3Kw137SsHXOlQjrDjZX4tvkIS89o0xEMdHa4HVtQiZLW
+      i9VvKecJRfmM8EjQdJVLXUY3+FUu8tV0Oj/M4Rs51R3b0VO46nIgB5u7MNYWqK6RdMKBmofRjab1
+      Gdobi3PtDNkgKDZmwftA7MLkNFVbeYuXrqWS6z/vppG4euWYvOaPSwgyy0RefYVgdojvupX3Azdh
+      k61e9EmeFFdm/ost78zALbEw7DypMoDS5P/lZxdrWN4U7YjU9Q9MiDb4K6XB2fUdKxwnlCUa8JMR
+      zqZkPFkq4MHUWUCb3nptoBXbR2suegrrNQApqV4e4GKMRONHQ56xPjQA3IFDujMNyPumug/h0Wzg
+      U2kaA+v6AWhgcbEjpM/CkWf2Bs1IgTsaeF4VHEVkHu37Pm/cZms6d5I0I5xU+P/EFLc8J88x1zl+
+      XNBFUdLdRRaC7TcAIBcdYCrV9+JzY7t3pqYegKSVUMESfxTT+CwtNgbPxAZRehj2wGE0l897kdTL
+      VFxWaJeraV4NPyDpyYVM+zZ4jR3OROgqoF7G0Md8MZBZPqmT3ldt7HWwhWm2d8Whh677CcKr6ejr
+      F8E8XNDkZkJUjAN3OYN6R4LtkwWrjcQ1Ct8XZKTqEw9PZyMuT07FH0BoOqbbLVB+FI8NwS/aV3kJ
+      +9uT+22RIUuo5O2xRO7ZBdTCQxm3T+AcXtLmLTyowMz253kibSr+dwfae50UIsO8GcnZ2qKJl8gc
+      4ZpM1tb6NI842T48xKMGAr/qp5Xh0Kq7soao31LASfoXX8VtkY4hGmFrc0ENR7AZsqOn4tsNfsms
+      MT6I+HcXbQmCMElGxdnGFF5+cL3F+hbkmh1GMgx7Y3eiPWrrXmExd6fakxJ/Hpqxy31aX+VlEDNn
+      7e8bb1iVWh0L0p6xlZG02MRifdEmy1w4vrgbcUCfMYjVWcpsjm9LiwzhReJfjxUW3CagrHDcP14y
+      3C+Oldu4vGsXToKkG9BynxaTRd9OwSRwLGi6zBsTCDRugvsI1WiJfjKJrgI+QIhVznV2DIHQSjNK
+      Lj+qFGPkdHlG3oEQjGkTtIMNfKoRPTLPsU9Q4NQOvjKyPhMyWv0aPGkTtZTa3LL3P/WpIHKqMJBR
+      CPOC6rsO9JJNMMeG9MtM/HRln5+fYQ9oLpyQdr4KEhiDf0uBEpoQDP1lxHgOqdhTXeZWs/oNywjg
+      So16EhU4tOlyzH/rN5ywvzdRViMKAuguCVmp+h2Fg6tFmGjRUdquqezB106XJi5fhn0ojKwu4jqx
+      qgTnqeSetJ2LqIjYe5+d4qK0pei7aZ0IqalzZuA8qD02huOuzInsYTOD5y7BS6UhwsPrnvwKrCXs
+      EffFisYzJRJfIj83vfaVXuzIF4LlvbR1fUzfFRSYTdeOLYXvPJgSQVpxaOqchK3oD7ON31NmCesR
+      QZqHcHKoPTburq5CHoqOACM791XxTqNxzEyXcTh/Eg1bb2OdqvG1fsNdQ77rlbQSVQf9Qxfzrarx
+      e8LJAh0fmI33468fBE4/U7DlJzweNwIzJ3y2eMMYAcDxioT3/ePabZxe+tJ/52nJ6YqZiP1z46ZX
+      sHQ071Tn4fU9L2rnVthLL3ym/lGO8o+F1+0P/Zcf/nc9zz/CDfO6b1fmSRDsRz0KOsCY4hoqGrvI
+      4uCKEXO6QPBzoOlgPokb86D96KrhRnD0/dp5eHR7i3IauER0HGh92Js3HfjvkQ8EsbMfpzh3u8H6
+      gUDTlNcyKH2xNnVP8psoKLxvM4o4nblI28IS+KiQ5VXDR0CbPnCpvEXGpjDLd1VZw9Lv4/hSlVEm
+      2DMZ5L8xjjZjzDyllqS0hISEhISEhISEhISEhISEhISEhISEhISEhISLgZ/wsAAP//2+oNvcf383
+      QAAAAASUVORK5CYII=
+    mediatype: image/png
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+  - supported: true
+    type: OwnNamespace
+  - supported: true
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - erdemo
+  - emergency
+  - response
+  links:
+  - name: Operator Source
+    url: https://github.com/Emergency-Response-Demo/erdemo-operator
+  maintainers:
+  - email: akrohg@redhat.com
+    name: Andy Krohg
+  maturity: alpha
+  provider:
+    name: RedHatGov
+    url: redhatgov.io
+  version: 0.0.0
