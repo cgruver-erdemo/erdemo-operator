@@ -25,8 +25,11 @@ oc new-project erdemo-operator-system
 ```
 4. In the OpenShift Web Console, navigate to **Operators -> OperatorHub** and search for "Emergency Response Demo Operator" in the **erdemo-operator-system** project. Select it and click **Install**
 5. Set **Installation Mode** to *A specific namespace on the cluster* and set **Installed Namespace** to *erdemo-operator-system*.
+   ![](doc/images/olm_select_namespace.png)
+  
 6. Leave other options as default and click **Install** once more.
 7. On the ErDemo Operator page, create a new `ErDemo` CustomResource, setting the value of **mapToken** to match [your own mapbox API token](https://account.mapbox.com/access-tokens/).
+   ![](doc/images/olm_add_mapbox_token.png)
 
 ## Development
 To install:
