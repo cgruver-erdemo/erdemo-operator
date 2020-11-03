@@ -14,7 +14,7 @@ metadata:
   namespace: openshift-marketplace
 spec:
   sourceType: grpc
-  image: quay.io/akrohg/erdemo-operator-catalog:latest
+  image: quay.io/emergencyresponsedemo/erdemo-operator-catalog:2.8
   displayName: Emergency Response Demo Operator
   publisher: RedHatGov
 EOF
@@ -35,7 +35,7 @@ oc new-project erdemo-operator-system
 To install:
 1. Clone this repository and `cd` into it.
 ```
-git clone https://github.com/andykrohg/erdemo-operator
+git clone https://github.com/Emergency-Response-Demo/erdemo-operator
 cd erdemo-operator 
 ```
 1. Ensure you're logged in with `oc` as a `cluster-admin`
